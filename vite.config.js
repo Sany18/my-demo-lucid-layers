@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { copy } from 'vite-plugin-copy';
 
 // https://vite.dev/config/
 export default defineConfig(() => {
@@ -26,6 +27,11 @@ export default defineConfig(() => {
         webp: {
           quality: 80,
         },
+      }),
+      copy({
+        targets: [
+          { src: 'src/assets', dest: 'build' },
+        ],
       }),
     ],
     root: 'src',

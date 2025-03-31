@@ -37,6 +37,7 @@
     "sharp": "^0.33.5",
     "ts-jest": "^29.2.5",
     "vite": "^6.2.0",
+    "vite-plugin-copy": "^0.1.6",
     "vite-plugin-pwa": "^0.21.1",
     "vite-tsconfig-paths": "^5.1.4"
   }
