@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["dom", "es2015", "esnext"],
+    "types": ["node"],
+    "target": "es2022",
+    "module": "es2022",
+    "baseUrl": "./src",
+    "noEmit": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "moduleResolution": "node",
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/**/*", "public"],
+  "exclude": ["node_modules", "build"]
+}
