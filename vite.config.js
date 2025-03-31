@@ -13,7 +13,10 @@ export default defineConfig(() => {
       react(),
       tsconfigPaths(),
       VitePWA({
-        injectRegister: 'auto'
+        injectRegister: 'auto',
+        workbox: {
+          maximumFileSizeToCacheInBytes: 12582912,
+        },
       }),
       ViteImageOptimizer({
         png: {
@@ -34,7 +37,7 @@ export default defineConfig(() => {
       'process.env': env
     },
     build: {
-      outDir: '../build',
+      outDir: '../docs',
     },
   };
 });
