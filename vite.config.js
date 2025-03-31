@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vite.dev/config/
 export default defineConfig(() => {
@@ -28,14 +27,6 @@ export default defineConfig(() => {
           quality: 80,
         },
       }),
-      viteStaticCopy({
-        targets: [
-          {
-            src: 'assets/luciad',
-            dest: './assets',
-          }
-        ]
-      })
     ],
     root: 'src',
     publicDir: '../public',
@@ -49,5 +40,6 @@ export default defineConfig(() => {
     build: {
       outDir: '../build',
     },
+    assetsInclude: ['**/*.txt'],
   };
 });
