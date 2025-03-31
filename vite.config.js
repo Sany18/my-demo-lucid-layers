@@ -31,14 +31,11 @@ export default defineConfig(() => {
     root: 'src',
     publicDir: '../public',
     server: {
-      port: env.PORT,
+      port: env.VITE_PORT,
       host: true,
     },
     define: {
-      'process.env': {
-        PORT: env.PORT,
-        NODE_ENV: env.NODE_ENV,
-      }
+      'process.env': {}
     },
     build: {
       outDir: '../build',
