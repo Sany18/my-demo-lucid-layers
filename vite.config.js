@@ -9,6 +9,7 @@ export default defineConfig(() => {
   const env = loadEnv(null, process.cwd(), '');
 
   return {
+    base: '/luciad-map-demo/',
     plugins: [
       react(),
       tsconfigPaths(),
@@ -37,7 +38,7 @@ export default defineConfig(() => {
       'process.env': env
     },
     build: {
-      outDir: '../docs',
+      outDir: '../build',
     },
   };
 });
