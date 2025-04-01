@@ -33,6 +33,12 @@ document.body.appendChild(stats.dom);
 export const App = () => {
   const { setItem, getItem } = useLocalStorage();
   const [featuresData, setFeaturesData] = useState({ features: 300000, layers: 1 });
+  const [isLayersVisible, setIsLayersVisible] = useState(true);
+
+  const toggleLayers = () => {
+    setIsLayersVisible(!isLayersVisible);
+    map.layerTree.visible = !isLayersVisible;
+  }
 
   const addLayerToMap = async () => {
     const layer = await CreateNewLayer(BINGMAPS_AERIAL.parameters);
@@ -181,6 +187,10 @@ export const App = () => {
 
         <button onClick={clear}>
           Clear
+        </button>
+
+        <button onClick={toggleLayers}>
+          {isLayersVisible ? 'Hide' : 'Show'} layers
         </button>
       </div>
 
