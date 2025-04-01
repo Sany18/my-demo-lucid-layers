@@ -9,6 +9,10 @@ import { router } from 'pages/router.tsx';
 
 import 'assets/css/index.css';
 
+const licenseUrl = new URL('../public/luciad/license/luciadria_development.txt', import.meta.url).href;
+window.__LUCIAD_ROOT__ = '/' + licenseUrl.split('/').slice(4, 5).join('/');
+console.log('Luciad license URL:', window.__LUCIAD_ROOT__, licenseUrl);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   providerWrapper(
