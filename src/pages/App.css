@@ -20,3 +20,8 @@
 .Map {
   flex: 1;
 }
+
+.stats {
+  left: unset !important;
+  right: 0;
+}

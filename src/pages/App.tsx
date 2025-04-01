@@ -14,6 +14,7 @@ import { FeatureModel } from '@luciad/ria/model/feature/FeatureModel';
 import { MemoryStore } from '@luciad/ria/model/store/MemoryStore';
 import { Feature } from '@luciad/ria/model/feature/Feature';
 import { PointPainter } from 'utils/FeaturePainter';
+import Stats from 'stats-js';
 
 let map;
 let layerGroup;
@@ -22,6 +23,12 @@ const featureRenderArea = {
   topLeft: [0, 0],
   bottomRight: [180, 180],
 }
+
+const stats = new Stats();
+let statsStarted = false;
+stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+stats.dom.className = 'stats';
+document.body.appendChild(stats.dom);
 
 export const App = () => {
   const { setItem, getItem } = useLocalStorage();
@@ -123,6 +130,20 @@ export const App = () => {
     initMapListeners();
   }, []);
 
+  // Init Stats
+  useEffect(() => {
+    const triggerStatsTick = () => {
+      stats.begin();
+      stats.end();
+      requestAnimationFrame(triggerStatsTick);
+    }
+
+    if (!statsStarted) {
+      statsStarted = true;
+      triggerStatsTick();
+    }
+  }, []);
+
   return (
     <div className="App">
       <div className="App__topLeftButtons">
@@ -161,8 +182,6 @@ export const App = () => {
         <button onClick={clear}>
           Clear
         </button>
-
-        <a href="/luciad-map-demo/license/luciadria_development.txt" target="_blank">View License</a>
       </div>
 
       <div className="Map"></div>
