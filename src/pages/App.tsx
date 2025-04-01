@@ -161,6 +161,8 @@ export const App = () => {
         <button onClick={clear}>
           Clear
         </button>
+
+        <a href="/luciad-map-demo/license/luciadria_development.txt" target="_blank">View License</a>
       </div>
 
       <div className="Map"></div>

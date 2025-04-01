@@ -29,7 +29,7 @@ export default defineConfig(() => {
       }),
     ],
     root: 'src',
-    publicDir: '../public',
+    publicDir: 'public',
     server: {
       port: env.VITE_PORT,
       host: true,
@@ -39,7 +39,6 @@ export default defineConfig(() => {
     },
     build: {
       outDir: '../build',
-    },
-    assetsInclude: ['**/*.txt'],
+    }
   };
 });
