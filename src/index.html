@@ -7,7 +7,11 @@
 
     <!-- LuciadRIA -->
     <script>
-      window.__LUCIAD_ROOT__ = 'public';
+      if (location.hostname === 'localhost') {
+        window.__LUCIAD_ROOT__ = 'public';
+      } else {
+        window.__LUCIAD_ROOT__ = './';
+      }
     </script>
   </head>
 
