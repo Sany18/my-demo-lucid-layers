@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { createSingletonProvider } from "../../services/reactProvider/singletonProvider";
+import { createSingletonProvider } from "../react-provider/singletonProvider";
 
 import { storagePrefix } from "./storagePrefix.const";
 import { getLocalstorageState } from "./getLocalstorageState";

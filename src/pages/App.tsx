@@ -7,7 +7,6 @@ import { BINGMAPS_AERIAL } from 'utils/CreateLayerCommands';
 import { CreateNewLayer } from 'utils/CreateNewLayer';
 import { getXYZ } from 'utils/xyz';
 import { createPoint } from '@luciad/ria/shape/ShapeFactory';
-import { useLocalStorage } from 'services/localStorage/localStorage.hook';
 import { LayerGroup } from '@luciad/ria/view/LayerGroup';
 import { FeatureLayer } from '@luciad/ria/view/feature/FeatureLayer';
 import { FeatureModel } from '@luciad/ria/model/feature/FeatureModel';
@@ -15,20 +14,18 @@ import { MemoryStore } from '@luciad/ria/model/store/MemoryStore';
 import { Feature } from '@luciad/ria/model/feature/Feature';
 import { PointPainter } from 'utils/FeaturePainter';
 import Stats from 'stats-js';
+import { useLocalStorage } from 'services/local-storage/localStorage.hook';
+import { runScenario } from 'components/scenarios/run-scenario';
+import { parformanceMesurementScenario } from 'components/scenarios/parformance-mesurement';
 
 let map;
 let layerGroup;
+let stats;
 
 const featureRenderArea = {
   topLeft: [0, 0],
   bottomRight: [180, 180],
 }
-
-const stats = new Stats();
-let statsStarted = false;
-stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-stats.dom.className = 'stats';
-document.body.appendChild(stats.dom);
 
 export const App = () => {
   const { setItem, getItem } = useLocalStorage();
@@ -123,31 +120,35 @@ export const App = () => {
     });
   }
 
+  const runBenchmark = () => {
+    runScenario(parformanceMesurementScenario(map));
+  };
+
   // Create the map
   useEffect(() => {
     const element = document.querySelector('.Map') as HTMLElement;
-    const map3D = CRSEnum.EPSG_4978;
-    const reference = getReference(map3D);
-    map = new WebGLMap(element, { reference });
+    map = new WebGLMap(element, {
+      reference: getReference(CRSEnum.EPSG_4978),
+      autoAdjustDisplayScale: true
+    });
 
-    loadCameraPositionFromUrl();
+    // Add stats
+    stats = new Stats();
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    stats.dom.className = 'stats';
+    element.appendChild(stats.dom);
 
-    addLayerToMap();
-    initMapListeners();
-  }, []);
-
-  // Init Stats
-  useEffect(() => {
     const triggerStatsTick = () => {
       stats.begin();
       stats.end();
       requestAnimationFrame(triggerStatsTick);
-    }
+    };
 
-    if (!statsStarted) {
-      statsStarted = true;
-      triggerStatsTick();
-    }
+    triggerStatsTick();
+
+    loadCameraPositionFromUrl();
+    addLayerToMap();
+    initMapListeners();
   }, []);
 
   return (
@@ -191,6 +192,10 @@ export const App = () => {
 
         <button onClick={toggleLayers}>
           {isLayersVisible ? 'Hide' : 'Show'} layers
+        </button>
+
+        <button onClick={runBenchmark}>
+          Run performance benchmark
         </button>
       </div>
 

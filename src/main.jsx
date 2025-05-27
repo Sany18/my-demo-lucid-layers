@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
-import { providerWrapper } from 'services/reactProvider/providerWrapper';
-import { LocalStorageProvider } from 'services/localStorage/localStorage.hook';
+import { providerWrapper } from 'services/react-provider/providerWrapper';
+import { LocalStorageProvider } from 'services/local-storage/localStorage.hook';
 import ReactDOM from 'react-dom/client';
 
 import { RecoilRoot } from 'recoil';
