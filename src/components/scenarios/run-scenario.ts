@@ -1,4 +1,4 @@
-export const runScenario = async (scenario: AsyncGenerator): Promise<void> => {
+export const runScenario = async (scenario: AsyncGenerator): Promise<unknown> => {
   // Initialize the scenario
   let result = await scenario.next();
 
@@ -10,4 +10,7 @@ export const runScenario = async (scenario: AsyncGenerator): Promise<void> => {
   } catch (error) {
     console.log('Scenario interrupted:', error);
   }
+
+  // Finalize the scenario
+  return result.value;
 };

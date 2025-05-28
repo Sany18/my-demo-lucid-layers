@@ -1,24 +1,20 @@
-// Button "Run benchmark"
-// Load the app, wait for maps loading
-// Move closer
-// Move to the surface (100 m)
+// Zoom to the initial position
+// Move to the surface (~1000 m)
 // Move on the surface
 // Travel to the horizon
-// Move back to the 100m
-// Travel
+// Move back
 // Move to the surface
-// Travel
 // Move to initial position
 
 import { getReference } from "@luciad/ria/reference/ReferenceProvider";
 import { createBounds } from "@luciad/ria/shape/ShapeFactory";
 import { CRSEnum } from "enum/CRS.enum";
-import { CameraService } from "services/luciad-helpers/camera.service";
+import { CameraService } from "services/camera/camera.service";
 
 export async function* parformanceMesurementScenario(map) {
   const cameraService = new CameraService(map);
 
-  yield console.log('parformanceMesurementScenario Started');
+  yield console.info('parformanceMesurementScenario Started');
   yield document.querySelector('.Map.luciad').requestFullscreen();
 
   // Initial position
@@ -34,7 +30,7 @@ export async function* parformanceMesurementScenario(map) {
   // Move to the surface (1000 m)
   const testBounds1 = createBounds(getReference(CRSEnum.CRS_84), [7.87, 0.05, 54.16, 0.05]);
 
-  yield cameraService.moveCameracreatePointo(testBounds1, { duration: 3000, targetPitch: -45, targetYaw: -45 });
+  yield cameraService.moveCameraTo(testBounds1, { duration: 3000, targetPitch: -45, targetYaw: -45 });
   yield cameraService.moveCameraTo(testBounds1, { duration: 2000, targetPitch: -10, targetYaw: 0 });
   // Look left and right
   yield cameraService.moveCameraTo(null, { duration: 2000, targetPitch: -10, targetYaw: 45 });
@@ -57,6 +53,7 @@ export async function* parformanceMesurementScenario(map) {
 
   // Move to the horizon
   const testBounds3 = createBounds(getReference(CRSEnum.CRS_84), [7.9, 0.001, 54.2, 0.01]);
+
   yield cameraService.moveCameraTo(testBounds3, { duration: 8000, targetYaw: 180 });
   // Look left and right
   yield cameraService.moveCameraTo(testBounds2, { duration: 4000, targetPitch: -10, targetYaw: 45 + 90 });
@@ -64,9 +61,10 @@ export async function* parformanceMesurementScenario(map) {
   yield cameraService.moveCameraTo(testBounds2, { duration: 1000, targetPitch: -10, targetYaw: 0 });
   yield new Promise(resolve => setTimeout(resolve, 1000));
 
+  // Finally, move back to the surface and to the initial position
   yield cameraService.moveCameraTo(testBounds2, { duration: 2000, targetPitch: -45, targetYaw: 0 });
   yield cameraService.defaultCameraPosition({ duration: 6000 });
 
   yield document.exitFullscreen();
-  yield console.log('parformanceMesurementScenario Finished');
+  yield console.info('parformanceMesurementScenario Finished');
 }

@@ -17,10 +17,12 @@ import Stats from 'stats-js';
 import { useLocalStorage } from 'services/local-storage/localStorage.hook';
 import { runScenario } from 'components/scenarios/run-scenario';
 import { parformanceMesurementScenario } from 'components/scenarios/parformance-mesurement';
+import { PerformanceMeasurementService } from 'services/performance-mesurement/performance-mesurement.service';
 
 let map;
 let layerGroup;
 let stats;
+const ms = new PerformanceMeasurementService();
 
 const featureRenderArea = {
   topLeft: [0, 0],
@@ -120,18 +122,7 @@ export const App = () => {
     });
   }
 
-  const runBenchmark = () => {
-    runScenario(parformanceMesurementScenario(map));
-  };
-
-  // Create the map
-  useEffect(() => {
-    const element = document.querySelector('.Map') as HTMLElement;
-    map = new WebGLMap(element, {
-      reference: getReference(CRSEnum.EPSG_4978),
-      autoAdjustDisplayScale: true
-    });
-
+  const initStats = (element) => {
     // Add stats
     stats = new Stats();
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -145,6 +136,23 @@ export const App = () => {
     };
 
     triggerStatsTick();
+  }
+
+  const runBenchmark = async () => {
+    ms.start();
+    await runScenario(parformanceMesurementScenario(map));
+    ms.end();
+  };
+
+  // Create the map
+  useEffect(() => {
+    const element = document.querySelector('.Map') as HTMLElement;
+    map = new WebGLMap(element, {
+      reference: getReference(CRSEnum.EPSG_4978),
+      autoAdjustDisplayScale: true
+    });
+
+    initStats(element);
 
     loadCameraPositionFromUrl();
     addLayerToMap();
