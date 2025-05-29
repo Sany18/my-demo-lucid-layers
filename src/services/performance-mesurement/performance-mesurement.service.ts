@@ -174,7 +174,7 @@ export class PerformanceMeasurementService {
         <p><strong>Browser:</strong> ${this.data.browser.parsedUserAgent.browser}</p>
         <p><strong>System:</strong> ${this.data.browser.parsedUserAgent.system}</p>
         <p><strong>Engine:</strong> ${this.data.browser.parsedUserAgent.engine}</p>
-        <p><strong>GPU Renderer:</strong>${this.data.browser.GPU.renderer}</p>
+        <p><strong>GPU Renderer:</strong> ${this.data.browser.GPU.renderer}</p>
         <p><strong>GPU Vendor:</strong> ${this.data.browser.GPU.vendor}</p>
 
         <h3 style='color: lightgreen;'>Connection</h3>
