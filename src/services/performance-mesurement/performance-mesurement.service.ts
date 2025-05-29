@@ -168,19 +168,25 @@ export class PerformanceMeasurementService {
       <div style='color: red; font-size: 1.5rem; cursor: pointer;' onclick='this.parentElement.remove()'>X</div>
       <div style='overflow: auto;'>
         <h2 style='color: lightgray;'>Performance Measurement Report</h2>
+
         <h3 style='color: lightgreen;'>Browser Information</h3>
         <p><strong>Platform:</strong> ${this.data.browser.platform}</p>
         <p><strong>Browser:</strong> ${this.data.browser.parsedUserAgent.browser}</p>
         <p><strong>System:</strong> ${this.data.browser.parsedUserAgent.system}</p>
         <p><strong>Engine:</strong> ${this.data.browser.parsedUserAgent.engine}</p>
+        <p><strong>GPU Renderer:</strong>${this.data.browser.GPU.renderer}</p>
+        <p><strong>GPU Vendor:</strong> ${this.data.browser.GPU.vendor}</p>
+
         <h3 style='color: lightgreen;'>Connection</h3>
         <p><strong>Effective Type:</strong> ${this.data.browser.connection.effectiveType}</p>
         <p><strong>Downlink:</strong> ${this.data.browser.connection.downlink} Mbps</p>
         <p><strong>RTT:</strong> ${this.data.browser.connection.rtt} ms</p>
+
         <h3 style='color: lightgreen;'>Framerate</h3>
         <p><strong>Min:</strong> ${this.data.framerate.min} fps</p>
         <p><strong>Max:</strong> ${this.data.framerate.max} fps</p>
         <p><strong>Avarage:</strong> ${this.data.framerate.avarage} fps</p>
+
         <button onclick=window.saveReport()>Save to file</button>
       </div>
       <div style='flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem; gap: 1rem;'>
