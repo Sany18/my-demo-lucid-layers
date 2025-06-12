@@ -57,9 +57,9 @@ export class PerformanceMeasurementService {
     this.data.browser.platform = navigator.platform;
     this.data.browser.userAgent = navigator.userAgent;
     this.data.browser.connection = {
-      effectiveType: navigator.connection?.effectiveType || 'unknown',
-      downlink: navigator.connection?.downlink || 0,
-      rtt: navigator.connection?.rtt || 0,
+      effectiveType: navigator.connection?.effectiveType || 'unavailable',
+      downlink: navigator.connection?.downlink || 'unavailable',
+      rtt: navigator.connection?.rtt || 'unavailable',
     }
     this.data.WebGLSupport = this.checkWebGLSupport();
 
