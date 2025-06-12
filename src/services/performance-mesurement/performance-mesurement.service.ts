@@ -2,7 +2,6 @@ const initData = {
   browser: {
     platform: '',
     userAgent: '',
-    parsedUserAgent: {} as Record<string, string>,
     framerate: 0,
     connection: {
       effectiveType: '',
@@ -57,7 +56,6 @@ export class PerformanceMeasurementService {
 
     this.data.browser.platform = navigator.platform;
     this.data.browser.userAgent = navigator.userAgent;
-    this.data.browser.parsedUserAgent = this.parseNavigatorAgent(navigator.userAgent);
     this.data.browser.connection = {
       effectiveType: navigator.connection?.effectiveType || 'unknown',
       downlink: navigator.connection?.downlink || 0,
@@ -129,19 +127,6 @@ export class PerformanceMeasurementService {
       frame();
     });
   }
-
-  private parseNavigatorAgent(userAgent): Record<string, string> {
-    const match = userAgent.match(/^([^ ]+) \(([^)]+)\) ([^ ]+ \([^)]+\)) (.+)$/);
-    const [_, product, system, engine, browser] = match;
-
-    return {
-      product,
-      system,
-      engine,
-      browser
-    };
-  }
-
   private showReport() {
     const element = document.querySelector('.Map');
     element.querySelector('#performance-report')?.remove();
@@ -171,9 +156,8 @@ export class PerformanceMeasurementService {
 
         <h3 style='color: lightgreen;'>Browser Information</h3>
         <p><strong>Platform:</strong> ${this.data.browser.platform}</p>
-        <p><strong>Browser:</strong> ${this.data.browser.parsedUserAgent.browser}</p>
-        <p><strong>System:</strong> ${this.data.browser.parsedUserAgent.system}</p>
-        <p><strong>Engine:</strong> ${this.data.browser.parsedUserAgent.engine}</p>
+        <p><strong>Browser: product, system, engine, browser:</strong></p>
+        <p>${this.data.browser.userAgent}</p>
         <p><strong>GPU Renderer:</strong> ${this.data.browser.GPU.renderer}</p>
         <p><strong>GPU Vendor:</strong> ${this.data.browser.GPU.vendor}</p>
 
