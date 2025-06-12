@@ -19,6 +19,7 @@ import { PerformanceMeasurementService } from 'services/performance-mesurement/p
 import { LayerFactory } from 'services/LayerFactory';
 import { PerformanceSettingsService } from 'services/performance-settings.service';
 import { Layers } from 'consts/Layers';
+import { DEFAULT_MAP_GLOBE_COLOR } from 'consts/const';
 
 let map;
 let layerGroup;
@@ -35,10 +36,17 @@ export const App = () => {
   const { setItem, getItem } = useLocalStorage();
   const [featuresData, setFeaturesData] = useState({ features: 300000, layers: 1 });
   const [isLayersVisible, setIsLayersVisible] = useState(true);
+  const [isGlobeVisible, setIsGlobeVisible] = useState(true);
 
   const toggleLayers = () => {
     setIsLayersVisible(!isLayersVisible);
     map.layerTree.visible = !isLayersVisible;
+  }
+
+  const toggleGlobe = () => {
+    setIsGlobeVisible(!isGlobeVisible);
+    map.globeColor = isGlobeVisible ? DEFAULT_MAP_GLOBE_COLOR : null;
+    map.invalidate();
   }
 
   // command: CreateLayerInfo
@@ -218,6 +226,10 @@ export const App = () => {
 
         <button onClick={toggleLayers}>
           {isLayersVisible ? 'Hide' : 'Show'} layers
+        </button>
+
+        <button onClick={toggleGlobe}>
+          {isGlobeVisible ? 'Hide' : 'Show'} globe
         </button>
 
         <button onClick={runBenchmark}>

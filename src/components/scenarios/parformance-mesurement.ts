@@ -8,10 +8,9 @@
 
 import { getReference } from "@luciad/ria/reference/ReferenceProvider";
 import { createBounds } from "@luciad/ria/shape/ShapeFactory";
+import { DEFAULT_MAP_GLOBE_COLOR } from "consts/const";
 import { CRSEnum } from "enum/CRS.enum";
 import { CameraService } from "services/camera/camera.service";
-
-export const DEFAULT_MAP_GLOBE_COLOR = '#aabbcc';
 
 // Time in seconds to wait before starting the scenario
 const pleaseStandBy = (mapEl, time) => {
