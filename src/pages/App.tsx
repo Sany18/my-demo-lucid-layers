@@ -3,8 +3,6 @@ import './App.css';
 import { CRSEnum } from 'enum/CRS.enum';
 import { getReference } from '@luciad/ria/reference/ReferenceProvider';
 import { WebGLMap } from '@luciad/ria/view/WebGLMap';
-import { BINGMAPS_AERIAL } from 'utils/CreateLayerCommands';
-import { CreateNewLayer } from 'utils/CreateNewLayer';
 import { getXYZ } from 'utils/xyz';
 import { createPoint } from '@luciad/ria/shape/ShapeFactory';
 import { LayerGroup } from '@luciad/ria/view/LayerGroup';
@@ -18,10 +16,14 @@ import { useLocalStorage } from 'services/local-storage/localStorage.hook';
 import { runScenario } from 'components/scenarios/run-scenario';
 import { parformanceMesurementScenario } from 'components/scenarios/parformance-mesurement';
 import { PerformanceMeasurementService } from 'services/performance-mesurement/performance-mesurement.service';
+import { LayerFactory } from 'services/LayerFactory';
+import { PerformanceSettingsService } from 'services/performance-settings.service';
+import { Layers } from 'consts/Layers';
 
 let map;
 let layerGroup;
 let stats;
+let performanceSettingsService: PerformanceSettingsService = new PerformanceSettingsService();
 const ms = new PerformanceMeasurementService();
 
 const featureRenderArea = {
@@ -39,10 +41,24 @@ export const App = () => {
     map.layerTree.visible = !isLayersVisible;
   }
 
-  const addLayerToMap = async () => {
-    const layer = await CreateNewLayer(BINGMAPS_AERIAL.parameters);
+  // command: CreateLayerInfo
+  const createLayer = async (command) => {
+    const layer = await LayerFactory.createLayer(command, performanceSettingsService);
+
+    // 3016 - buildings
+    // 3017 - mountains
+    // 3018 - underwater pointcloud
+    // 3019 - over water pointcloud
+
+    if (!layer || !map) return null;
+
+    // Avoid duplications
+    const layerById = map.layerTree.findLayerTreeNodeById(layer.id);
+    if (layerById) return null;
 
     map.layerTree.addChild(layer);
+
+    return layer;
   }
 
   const getRandomFeature = () => {
@@ -152,10 +168,12 @@ export const App = () => {
       autoAdjustDisplayScale: true
     });
 
+    document.map = map;
+
     initStats(element);
 
     loadCameraPositionFromUrl();
-    addLayerToMap();
+    Object.values(Layers).forEach((layer) => createLayer(layer));
     initMapListeners();
   }, []);
 

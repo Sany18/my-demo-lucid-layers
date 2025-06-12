@@ -11,6 +11,8 @@ import { createBounds } from "@luciad/ria/shape/ShapeFactory";
 import { CRSEnum } from "enum/CRS.enum";
 import { CameraService } from "services/camera/camera.service";
 
+export const DEFAULT_MAP_GLOBE_COLOR = '#aabbcc';
+
 // Time in seconds to wait before starting the scenario
 const pleaseStandBy = (mapEl, time) => {
   const standBy = document.createElement('div');
@@ -87,9 +89,10 @@ export async function* parformanceMesurementScenario(map) {
   yield new Promise(resolve => setTimeout(resolve, 1000));
 
   // Move to the surface and look around
-  const testBounds2 = createBounds(getReference(CRSEnum.CRS_84), [7.88976637, 0.001, 54.17899276, 0.001]);
+  const testBounds2 = createBounds(getReference(CRSEnum.CRS_84), [7.889030524, 0.001, 54.177825005, 0.001]);
 
   yield cameraService.moveCameraTo(testBounds1, { duration: 2000, targetPitch: -89 });
+  document.map.globeColor = null;
   yield cameraService.moveCameraTo(testBounds2, { duration: 2000, targetPitch: -45 });
   yield cameraService.moveCameraTo(testBounds2, { duration: 2000, targetPitch: -10, targetYaw: 0 });
   yield new Promise(resolve => setTimeout(resolve, 1000));
@@ -102,6 +105,7 @@ export async function* parformanceMesurementScenario(map) {
   // Move to the horizon
   const testBounds3 = createBounds(getReference(CRSEnum.CRS_84), [7.9, 0.001, 54.2, 0.01]);
 
+  document.map.globeColor = DEFAULT_MAP_GLOBE_COLOR;
   yield cameraService.moveCameraTo(testBounds3, { duration: 8000, targetYaw: 180 });
   // Look left and right
   yield cameraService.moveCameraTo(testBounds2, { duration: 4000, targetPitch: -10, targetYaw: 45 });

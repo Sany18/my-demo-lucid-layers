@@ -3,11 +3,6 @@ const initData = {
     platform: '',
     userAgent: '',
     framerate: 0,
-    connection: {
-      effectiveType: '',
-      downlink: 0,
-      rtt: 0,
-    },
     GPU: {
       vendor: 'unknown',
       renderer: 'unknown',
@@ -56,11 +51,6 @@ export class PerformanceMeasurementService {
 
     this.data.browser.platform = navigator.platform;
     this.data.browser.userAgent = navigator.userAgent;
-    this.data.browser.connection = {
-      effectiveType: navigator.connection?.effectiveType || 'unavailable',
-      downlink: navigator.connection?.downlink || 'unavailable',
-      rtt: navigator.connection?.rtt || 'unavailable',
-    }
     this.data.WebGLSupport = this.checkWebGLSupport();
 
     const gpuInfo = this.getGPUInfo();
@@ -161,11 +151,6 @@ export class PerformanceMeasurementService {
         <p><strong>GPU Renderer:</strong> ${this.data.browser.GPU.renderer}</p>
         <p><strong>GPU Vendor:</strong> ${this.data.browser.GPU.vendor}</p>
 
-        <h3 style='color: lightgreen;'>Connection</h3>
-        <p><strong>Effective Type:</strong> ${this.data.browser.connection.effectiveType}</p>
-        <p><strong>Downlink:</strong> ${this.data.browser.connection.downlink} Mbps</p>
-        <p><strong>RTT:</strong> ${this.data.browser.connection.rtt} ms</p>
-
         <h3 style='color: lightgreen;'>Framerate</h3>
         <p><strong>Min:</strong> ${this.data.framerate.min} fps</p>
         <p><strong>Max:</strong> ${this.data.framerate.max} fps</p>
@@ -245,7 +230,6 @@ export class PerformanceMeasurementService {
     // Add vertical padding
     const padding = 10;
     const chartHeight = canvas.height - (padding * 2);
-    const chartTop = padding;
 
     // Draw grid lines
     ctx.strokeStyle = '#333';
