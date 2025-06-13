@@ -11,7 +11,7 @@ export const Layers = {
   BUILDINGS: {
     "id": "3016",
     "type": "OGC_3D_TILES_LAYER",
-    "url": "https://d1ip4s3edsq12r.cloudfront.net/assets/1/area_g-31da606b-2278-4161-9b9f-a289e0a7e7b7/tileset.json",
+    "url": "area_g-31da606b-2278-4161-9b9f-a289e0a7e7b7/tileset.json",
     "modelOptions": {
       "requestParameters": {
         "Policy": "eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMWlwNHMzZWRzcTEyci5jbG91ZGZyb250Lm5ldC9hc3NldHMvMS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzQ5NzM4Njc2fX19XX0_",
@@ -37,7 +37,7 @@ export const Layers = {
   MOUNTAINS: {
     "id": "3017",
     "type": "OGC_3D_TILES_LAYER",
-    "url": "https://d1ip4s3edsq12r.cloudfront.net/assets/1/elevation-82ca09e4-7bb6-4be9-9079-d6ce69841091/tileset.json",
+    "url": "elevation-82ca09e4-7bb6-4be9-9079-d6ce69841091/tileset.json",
     "modelOptions": {
       "requestParameters": {
         "Policy": "eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMWlwNHMzZWRzcTEyci5jbG91ZGZyb250Lm5ldC9hc3NldHMvMS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzQ5NzM4Njc2fX19XX0_",
@@ -63,7 +63,7 @@ export const Layers = {
   UNDERWATER_POINTCLOUD: {
     "id": "3018",
     "type": "OGC_3D_TILES_LAYER",
-    "url": "https://d1ip4s3edsq12r.cloudfront.net/assets/1/ground-3e9d655a-fc78-4799-bfaf-0dd816bffa32/tileset.json",
+    "url": "ground-3e9d655a-fc78-4799-bfaf-0dd816bffa32/tileset.json",
     "modelOptions": {
       "requestParameters": {
         "Policy": "eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMWlwNHMzZWRzcTEyci5jbG91ZGZyb250Lm5ldC9hc3NldHMvMS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzQ5NzM4Njc2fX19XX0_",
@@ -88,7 +88,7 @@ export const Layers = {
   OVERWATER_POINTCLOUD: {
     "id": "3019",
     "type": "OGC_3D_TILES_LAYER",
-    "url": "https://d1ip4s3edsq12r.cloudfront.net/assets/1/Area_G-05aadad9-feba-4540-873f-a238fe5147d3/tileset.json",
+    "url": "Area_G-05aadad9-feba-4540-873f-a238fe5147d3/tileset.json",
     "modelOptions": {
       "requestParameters": {
         "Policy": "eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9kMWlwNHMzZWRzcTEyci5jbG91ZGZyb250Lm5ldC9hc3NldHMvMS8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzQ5NzM4Njc2fX19XX0_",

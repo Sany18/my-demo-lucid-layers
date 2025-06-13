@@ -20,6 +20,7 @@ import { LayerFactory } from 'services/LayerFactory';
 import { PerformanceSettingsService } from 'services/performance-settings.service';
 import { Layers } from 'consts/Layers';
 import { DEFAULT_MAP_GLOBE_COLOR } from 'consts/const';
+import { getLayers } from 'services/layers-service';
 
 let map;
 let layerGroup;
@@ -181,8 +182,11 @@ export const App = () => {
     initStats(element);
 
     loadCameraPositionFromUrl();
-    Object.values(Layers).forEach((layer) => createLayer(layer));
     initMapListeners();
+
+    getLayers().then((layers) => {
+      layers.forEach((layer) => createLayer(layer));
+    });
   }, []);
 
   return (
