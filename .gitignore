@@ -1,5 +1,5 @@
 node_modules
 build
 .env*
-license
+src/public/license
 src/public/meshes
